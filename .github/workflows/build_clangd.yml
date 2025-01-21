@@ -4,7 +4,7 @@ on:
     branches: [master]
 
 jobs:
-  build-on-amd:
+  build-on-amd64:
     name: "build-on-ubuntu-24.04-amd64"
     runs-on: ubuntu-24.04
     steps:
