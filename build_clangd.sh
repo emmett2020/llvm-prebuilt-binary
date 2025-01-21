@@ -28,15 +28,6 @@ install_prefix="$2"
 pushd ${temp_dir} &> /dev/null
 sudo apt install ninja-build
 
-# DEBUG
-# mkdir -p "${install_prefix}"
-# mkdir -p "${install_prefix}/bin"
-# mkdir -p "${install_prefix}/lib/clang"
-# touch "${install_prefix}/bin/clangd"
-# touch "${install_prefix}/bin/clang-19"
-# touch "${install_prefix}/bin/clang"
-# touch "${install_prefix}/lib/clang/t"
-
 git clone --depth=1 --branch ${clangd_version} https://github.com/llvm/llvm-project.git
 cd llvm-project
 mkdir build && cd build
