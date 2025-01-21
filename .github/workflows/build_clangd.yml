@@ -28,7 +28,7 @@ jobs:
           echo "llvm latest version: $llvm_latest_version"
           echo "llvm_version=${llvm_latest_version}" >> "${GITHUB_OUTPUT}"
 
-          current_version="v${llvm_version}-amd"
+          current_version="v${llvm_latest_version}-amd"
           echo "current version: $current_version"
 
           if git rev-parse "${current_version}" >/dev/null 2>&1; then
@@ -73,7 +73,7 @@ jobs:
           echo "llvm latest version: $llvm_latest_version"
           echo "llvm_version=${llvm_latest_version}" >> "${GITHUB_OUTPUT}"
 
-          current_version="v${llvm_version}-amd"
+          current_version="v${llvm_latest_version}-amd"
           echo "current version: $current_version"
 
           if git rev-parse "${current_version}" >/dev/null 2>&1; then
