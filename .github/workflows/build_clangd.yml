@@ -40,14 +40,14 @@ jobs:
           fi
  
       - name: Run Build Script
-        if: ${{ steps.vars.outputs.needs_build }}
+        if: ${{ steps.vars.outputs.needs_build == 'true' }}
         run: |
           set -euo pipefail
           bash build_clangd.sh  "${{ steps.vars.outputs.llvm_version }}" "`pwd`/clangd/"
           tar -cf clangd-amd.tar.gz "clangd/"
 
       - name: Release Artifacts to Github Release Page
-        if: ${{ steps.vars.outputs.needs_build }}
+        if: ${{ steps.vars.outputs.needs_build == 'true' }}
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
