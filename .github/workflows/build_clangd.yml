@@ -32,8 +32,10 @@ jobs:
           echo "current_version=${current_latest_version}" >> "${GITHUB_OUTPUT}"
 
           if [[ "${current_latest_version}" == "${llvm_latest_version}" ]]; then
+            echo "needs build true"
             echo "needs_build=false" >> "${GITHUB_OUTPUT}"
           else
+            echo "needs build false"
             echo "needs_build=true" >> "${GITHUB_OUTPUT}"
           fi
  
