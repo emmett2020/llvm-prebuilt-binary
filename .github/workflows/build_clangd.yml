@@ -3,6 +3,10 @@ on:
   pull_request:
     branches: [master]
 
+permissions:
+  contents: write
+  discussions: write
+
 jobs:
   build-on-amd64:
     name: "build-on-ubuntu-24.04-amd64"
