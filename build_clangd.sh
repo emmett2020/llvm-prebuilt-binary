@@ -29,6 +29,7 @@ pushd ${temp_dir} &> /dev/null
 sudo apt install ninja-build
 
 # For debug
+mkdir -p ${install_prefix}
 touch ${install_prefix}/test.cpp
 
 #
