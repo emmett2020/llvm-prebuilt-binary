@@ -33,7 +33,7 @@ mkdir -p "${install_prefix}"
 mkdir -p "${install_prefix}/bin"
 mkdir -p "${install_prefix}/lib/clang"
 touch "${install_prefix}/bin/clangd"
-touch "${install_prefix}/bin/clangd-19"
+touch "${install_prefix}/bin/clang-19"
 touch "${install_prefix}/bin/clang"
 touch "${install_prefix}/lib/clang/t"
 

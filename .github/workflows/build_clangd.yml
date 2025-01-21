@@ -45,7 +45,7 @@ jobs:
           set -euo pipefail
           bash build_clangd.sh  "${{ steps.vars.outputs.llvm_version }}" "`pwd`/llvm/"
           major=$(echo "${{ steps.vars.outputs.llvm_version }}" | cut -d '.' -f 1)
-          tar -cf llvm-amd.tar.gz llvm/bin/clangd llvm/bin/clang-${major} llvm/bin/clang llvm/lib/clang/                                                                           ─╯
+          tar -cf llvm-amd.tar.gz llvm/bin/clangd llvm/bin/clang-${major} llvm/bin/clang llvm/lib/clang/
 
       - name: Release Artifacts to Github Release Page
         if: ${{ steps.vars.outputs.needs_build == 'true' }}
@@ -90,7 +90,7 @@ jobs:
           set -euo pipefail
           bash build_clangd.sh  "${{ steps.vars.outputs.llvm_version }}" "`pwd`/llvm/"
           major=$(echo "${{ steps.vars.outputs.llvm_version }}" | cut -d '.' -f 1)
-          tar -cf llvm-arm.tar.gz llvm/bin/clangd llvm/bin/clang-${major} llvm/bin/clang llvm/lib/clang/                                                                           ─╯
+          tar -cf llvm-arm.tar.gz llvm/bin/clangd llvm/bin/clang-${major} llvm/bin/clang llvm/lib/clang/
 
       - name: Release Artifacts to Github Release Page
         if: ${{ steps.vars.outputs.needs_build == 'true' }}
