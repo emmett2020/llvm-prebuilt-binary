@@ -28,12 +28,10 @@ jobs:
           echo "llvm latest version: $llvm_latest_version"
           echo "llvm_version=${llvm_latest_version}" >> "${GITHUB_OUTPUT}"
 
-          current_latest_version=$(git tag -l | sort -V | tail -n 1)
-          current_latest_version=${current_latest_version#v-amd-}
-          echo "current latest version: $current_latest_version"
-          echo "current_version=${current_latest_version}" >> "${GITHUB_OUTPUT}"
+          current_version="v${llvm_version}-amd"
+          echo "current version: $current_version"
 
-          if [[ "${current_latest_version}" == "${llvm_latest_version}" ]]; then
+          if git rev-parse "${current_version}" >/dev/null 2>&1; then
             echo "needs build false"
             echo "needs_build=false" >> "${GITHUB_OUTPUT}"
           else
@@ -54,7 +52,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
-          tag_name: v-amd-${{ steps.vars.outputs.llvm_version }}
+          tag_name: v${{ steps.vars.outputs.llvm_version }}-amd
           files: |
             llvm-amd.tar.gz
   build-on-arm64:
@@ -75,12 +73,10 @@ jobs:
           echo "llvm latest version: $llvm_latest_version"
           echo "llvm_version=${llvm_latest_version}" >> "${GITHUB_OUTPUT}"
 
-          current_latest_version=$(git tag -l | sort -V | tail -n 1)
-          current_latest_version=${current_latest_version#v-arm-}
-          echo "current latest version: $current_latest_version"
-          echo "current_version=${current_latest_version}" >> "${GITHUB_OUTPUT}"
+          current_version="v${llvm_version}-amd"
+          echo "current version: $current_version"
 
-          if [[ "${current_latest_version}" == "${llvm_latest_version}" ]]; then
+          if git rev-parse "${current_version}" >/dev/null 2>&1; then
             echo "needs build false"
             echo "needs_build=false" >> "${GITHUB_OUTPUT}"
           else
@@ -101,7 +97,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
-          tag_name: v-arm-${{ steps.vars.outputs.llvm_version }}
+          tag_name: v${{ steps.vars.outputs.llvm_version }}-arm
           files: |
             llvm-arm.tar.gz
 
