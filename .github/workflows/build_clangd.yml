@@ -38,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           bash build_clangd.sh  "${{ steps.vars.outputs.llvm_version }}" "`pwd`/clangd"
-          tar -xf clangd.tar.gz "`pwd`/clangd/"
+          tar -cf clangd.tar.gz "`pwd`/clangd/"
 
       - name: Release Artifacts to Github Release Page
         if: ${{ steps.vars.outputs.needs_build }} == 'true'
