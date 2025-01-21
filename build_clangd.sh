@@ -37,3 +37,4 @@ ninja -j`nproc` install
 popd &> /dev/null
 "${install_prefix}"/bin/clangd --version
 
+
