@@ -32,22 +32,22 @@ jobs:
           echo "current_version=${current_latest_version}" >> "${GITHUB_OUTPUT}"
 
           if [[ "${current_latest_version}" == "${llvm_latest_version}" ]]; then
-            echo "needs build true"
+            echo "needs build false"
             echo "needs_build=false" >> "${GITHUB_OUTPUT}"
           else
-            echo "needs build false"
+            echo "needs build true"
             echo "needs_build=true" >> "${GITHUB_OUTPUT}"
           fi
  
       - name: Run Build Script
-        if: ${{ steps.vars.outputs.needs_build }} == 'true'
+        if: ${{ steps.vars.outputs.needs_build }}
         run: |
           set -euo pipefail
           bash build_clangd.sh  "${{ steps.vars.outputs.llvm_version }}" "`pwd`/clangd/"
           tar -cf clangd-amd.tar.gz "clangd/"
 
       - name: Release Artifacts to Github Release Page
-        if: ${{ steps.vars.outputs.needs_build }} == 'true'
+        if: ${{ steps.vars.outputs.needs_build }}
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
