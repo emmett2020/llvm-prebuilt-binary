@@ -19,8 +19,6 @@ num_args=$#
 temp_dir=$(mktemp -d)
 trap "rm -rf ${temp_dir}" EXIT
 
-
-
 clangd_version=llvmorg-$1
 clangd_link="https://github.com/llvm/llvm-project.git"
 clangd_dir="/usr/local"
@@ -31,7 +29,7 @@ pushd ${temp_dir} &> /dev/null
 sudo apt install ninja-build
 
 # For debug
-touch ${install_dir}/test.cpp
+touch ${install_prefix}/test.cpp
 
 #
 # git clone --depth=1 --branch ${clangd_version} https://github.com/llvm/llvm-project.git
