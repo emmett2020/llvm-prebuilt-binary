@@ -1,4 +1,5 @@
 name: Build clangd on Ubuntu
+
 on:
   pull_request:
     branches: [master]
