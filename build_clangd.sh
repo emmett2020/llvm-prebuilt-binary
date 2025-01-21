@@ -28,17 +28,12 @@ install_prefix="$2"
 pushd ${temp_dir} &> /dev/null
 sudo apt install ninja-build
 
-# For debug
-mkdir -p ${install_prefix}
-touch ${install_prefix}/test.cpp
+git clone --depth=1 --branch ${clangd_version} https://github.com/llvm/llvm-project.git
+cd llvm-project
+mkdir build && cd build
+cmake ../llvm/ -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -GNinja  -DCMAKE_INSTALL_PREFIX="${install_prefix}"
+ninja -j`nproc` install
 
-#
-# git clone --depth=1 --branch ${clangd_version} https://github.com/llvm/llvm-project.git
-# cd llvm-project
-# mkdir build && cd build
-# cmake ../llvm/ -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -GNinja  -DCMAKE_INSTALL_PREFIX="${install_prefix}"
-# ninja -j`nproc` install
-#
 popd &> /dev/null
-# "${install_prefix}"/bin/clangd --version
+"${install_prefix}"/bin/clangd --version
 
