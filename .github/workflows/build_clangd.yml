@@ -2,8 +2,6 @@ name: Build clangd on Ubuntu
 on:
   pull_request:
     branches: [master]
-    paths:
-      - VERSION
 
 jobs:
   build-on-amd:
