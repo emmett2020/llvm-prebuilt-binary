@@ -1,0 +1,54 @@
+name: Build clangd on Ubuntu
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - VERSION
+
+jobs:
+  build-on-amd:
+    name: "build-on-ubuntu-24.04-amd64"
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get Vars
+        id: vars
+        run: |
+          set -euo pipefail
+
+          llvm_latest_version=$(curl -s https://api.github.com/repos/llvm/llvm-project/releases/latest | grep -oP '"tag_name": "\K.*?(?=")')
+          llvm_latest_version=${llvm_latest_version#llvmorg-}
+          echo "llvm latest version: $llvm_latest_version"
+          echo "llvm_version=${llvm_latest_version}" >> "${GITHUB_OUTPUT}"
+
+          current_latest_version=$(git tag -l | sort -V | tail -n 1)
+          current_latest_version=${current_latest_version#v}
+          echo "current latest version: $current_latest_version"
+          echo "current_version=${current_latest_version}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${current_latest_version}" == "${llvm_latest_version}" ]]; then
+            echo "needs_build=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "needs_build=true" >> "${GITHUB_OUTPUT}"
+          fi
+ 
+      - name: Run Build Script
+        if: ${{ steps.vars.outputs.needs_build }} == 'true'
+        run: |
+          set -euo pipefail
+          bash build_clangd.sh  "${llvm_latest_version}" "`pwd`/clangd"
+          tar -xf clangd.tar.gz "`pwd`/clangd/"
+
+      - name: Release Artifacts to Github Release Page
+        if: ${{ steps.vars.outputs.needs_build }} == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          fail_on_unmatched_files: true
+          tag_name: v${{ steps.vars.outputs.llvm_version }}
+          files: |
+            clangd.tar.gz
+
+
