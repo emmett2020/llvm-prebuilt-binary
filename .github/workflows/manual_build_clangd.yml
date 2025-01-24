@@ -29,7 +29,6 @@ jobs:
           tar -cf llvm-amd.tar.gz llvm/bin/clangd llvm/lib/clang/
 
       - name: Release Artifacts to Github Release Page
-        if: ${{ steps.vars.outputs.needs_build == 'true' }}
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
@@ -53,7 +52,6 @@ jobs:
           tar -cf llvm-arm.tar.gz llvm/bin/clangd llvm/lib/clang/
 
       - name: Release Artifacts to Github Release Page
-        if: ${{ steps.vars.outputs.needs_build == 'true' }}
         uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
